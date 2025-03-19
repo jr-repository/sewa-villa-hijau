@@ -8,13 +8,15 @@ interface FeatureCardProps {
   title: string;
   description: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export function FeatureCard({ 
   icon: Icon, 
   title, 
   description, 
-  className 
+  className,
+  style
 }: FeatureCardProps) {
   return (
     <div 
@@ -22,6 +24,7 @@ export function FeatureCard({
         "p-6 rounded-xl bg-white border border-forest-100 hover:border-forest-200 shadow-sm hover:shadow-md transition-all duration-300",
         className
       )}
+      style={style}
     >
       <div className="p-3 mb-4 inline-block rounded-lg bg-forest-50 text-forest-600">
         <Icon size={24} />

@@ -16,6 +16,7 @@ interface VillaCardProps {
   };
   className?: string;
   featured?: boolean;
+  style?: React.CSSProperties;
 }
 
 const formatPrice = (price: number) => {
@@ -27,7 +28,7 @@ const formatPrice = (price: number) => {
   }).format(price);
 };
 
-export function VillaCard({ villa, className, featured = false }: VillaCardProps) {
+export function VillaCard({ villa, className, featured = false, style }: VillaCardProps) {
   const { id, name, location, price, rating, images, totalReviews } = villa;
 
   return (
@@ -37,6 +38,7 @@ export function VillaCard({ villa, className, featured = false }: VillaCardProps
         "villa-card group rounded-xl overflow-hidden block bg-white shadow-sm hover:shadow-md transition-all duration-300",
         className
       )}
+      style={style}
     >
       <div className="relative overflow-hidden">
         <div 

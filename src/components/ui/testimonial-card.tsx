@@ -14,9 +14,10 @@ interface TestimonialCardProps {
     villaName: string;
   };
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export function TestimonialCard({ testimonial, className }: TestimonialCardProps) {
+export function TestimonialCard({ testimonial, className, style }: TestimonialCardProps) {
   const { name, avatar, rating, comment, date, villaName } = testimonial;
   
   return (
@@ -25,6 +26,7 @@ export function TestimonialCard({ testimonial, className }: TestimonialCardProps
         "p-6 rounded-xl bg-white border border-forest-100 shadow-sm hover:shadow-md transition-all duration-300",
         className
       )}
+      style={style}
     >
       <div className="flex items-center space-x-3 mb-4">
         <div className="flex-shrink-0">
