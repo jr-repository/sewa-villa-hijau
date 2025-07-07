@@ -63,46 +63,12 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom colors for our villa rental site
-				forest: {
-					50: '#f2f9f4',
-					100: '#e4f3e7',
-					200: '#c8e5d1',
-					300: '#9bd2b0',
-					400: '#66b985',
-					500: '#439e63',
-					600: '#2f7e4b',
-					700: '#28673f',
-					800: '#235235',
-					900: '#1e452f',
-					950: '#0d271a',
+				// VEXA Creative brand colors
+				vexa: {
+					purple: 'hsl(var(--vexa-purple))',
+					blue: 'hsl(var(--vexa-blue))',
+					cyan: 'hsl(var(--vexa-cyan))',
 				},
-				leaf: {
-					50: '#f5fbea',
-					100: '#e9f6d3',
-					200: '#d3ecab',
-					300: '#b7de7a',
-					400: '#9ccd50',
-					500: '#7cb330',
-					600: '#619025',
-					700: '#4a6f21',
-					800: '#3d5820',
-					900: '#354b1e',
-					950: '#1a290d',
-				},
-				moss: {
-					50: '#edf4ee',
-					100: '#d3e3d7',
-					200: '#a9c9b2',
-					300: '#7dab89',
-					400: '#5d9169',
-					500: '#41744d',
-					600: '#336040',
-					700: '#2b4d35',
-					800: '#243e2d',
-					900: '#1f3426',
-					950: '#0f1c13',
-				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

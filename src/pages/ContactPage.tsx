@@ -1,397 +1,340 @@
-
-import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Send, Clock, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import Layout from '@/components/layout/Layout';
-import { SectionHeading } from '@/components/ui/section-heading';
+import Hero from '@/components/layout/Hero';
 import { Button } from '@/components/ui/button';
+import { Mail, Phone, MapPin, Send, Instagram, ChevronRight } from 'lucide-react';
 import { toast } from "@/hooks/use-toast";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: ""
+    name: '',
+    email: '',
+    company: '',
+    service: '',
+    message: ''
   });
-  
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const validateForm = () => {
-    const newErrors: {[key: string]: string} = {};
-    
-    if (!formData.name.trim()) {
-      newErrors.name = "Nama wajib diisi";
-    }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = "Email wajib diisi";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Format email tidak valid";
-    }
-    
-    if (!formData.phone.trim()) {
-      newErrors.phone = "Nomor telepon wajib diisi";
-    } else if (!/^[0-9+\-\s()]*$/.test(formData.phone)) {
-      newErrors.phone = "Format nomor telepon tidak valid";
-    }
-    
-    if (!formData.subject.trim()) {
-      newErrors.subject = "Subjek wajib diisi";
-    }
-    
-    if (!formData.message.trim()) {
-      newErrors.message = "Pesan wajib diisi";
-    } else if (formData.message.length < 10) {
-      newErrors.message = "Pesan minimal 10 karakter";
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-  
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-out-cubic',
+    });
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [e.target.name]: e.target.value
     }));
-    
-    // Clear error when typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ""
-      }));
-    }
   };
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    if (validateForm()) {
-      setIsSubmitting(true);
-      
-      // Simulate API call
-      setTimeout(() => {
-        setIsSubmitting(false);
-        toast({
-          title: "Pesan Terkirim!",
-          description: "Terima kasih telah menghubungi kami. Tim kami akan segera menghubungi Anda.",
-        });
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          subject: "",
-          message: ""
-        });
-      }, 1500);
-    }
+    // Simulate form submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. We'll get back to you within 24 hours.",
+      });
+      setFormData({
+        name: '',
+        email: '',
+        company: '',
+        service: '',
+        message: ''
+      });
+    }, 2000);
   };
-  
+
+  const contactInfo = [
+    {
+      icon: Mail,
+      title: "Email",
+      value: "hello@vexacreative.com",
+      link: "mailto:hello@vexacreative.com"
+    },
+    {
+      icon: MapPin,
+      title: "Location",
+      value: "Dubai, UAE",
+      link: "#"
+    },
+    {
+      icon: Instagram,
+      title: "Instagram",
+      value: "@vexauae",
+      link: "https://instagram.com/vexauae"
+    }
+  ];
+
+  const services = [
+    "Social Media Management",
+    "Content Creation",
+    "Website Design & Development",
+    "Digital Marketing",
+    "Brand Identity Design",
+    "Other"
+  ];
+
   return (
     <Layout>
-      {/* Header */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-forest-100 to-white">
-        <div className="section-padding">
-          <SectionHeading
-            title="Hubungi Kami"
-            subtitle="Kami siap membantu Anda dengan pertanyaan atau pemesanan villa di Yogyakarta"
-            centered
-          />
-        </div>
-      </section>
-      
+      {/* Hero Section */}
+      <Hero
+        title="Get In Touch"
+        subtitle="Let's take your brand to the next level."
+        backgroundImage="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80"
+      />
+
       {/* Contact Info */}
-      <section className="py-16">
+      <section className="py-20">
         <div className="section-padding">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-xl border border-forest-100 shadow-sm text-center">
-              <div className="p-3 mb-4 inline-block rounded-full bg-forest-100 text-forest-600">
-                <Phone size={24} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {contactInfo.map((info, index) => (
+              <div 
+                key={info.title}
+                className="text-center bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
+              >
+                <div className="p-4 bg-gradient-button rounded-xl w-fit mx-auto mb-6">
+                  <info.icon className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-4">{info.title}</h3>
+                <a 
+                  href={info.link}
+                  className="text-primary hover:text-primary/80 transition-colors font-medium"
+                >
+                  {info.value}
+                </a>
               </div>
-              <h3 className="text-lg font-semibold text-forest-900 mb-2">
-                Telepon
-              </h3>
-              <p className="text-forest-600 mb-2">Senin - Minggu: 08.00 - 20.00 WIB</p>
-              <a href="tel:+6281234567890" className="text-forest-700 font-medium hover:text-forest-900 transition-colors">
-                +62 812-3456-7890
-              </a>
-            </div>
-            
-            <div className="bg-white p-6 rounded-xl border border-forest-100 shadow-sm text-center">
-              <div className="p-3 mb-4 inline-block rounded-full bg-forest-100 text-forest-600">
-                <Mail size={24} />
-              </div>
-              <h3 className="text-lg font-semibold text-forest-900 mb-2">
-                Email
-              </h3>
-              <p className="text-forest-600 mb-2">Kami akan membalas dalam 24 jam</p>
-              <a href="mailto:info@villahijau.com" className="text-forest-700 font-medium hover:text-forest-900 transition-colors">
-                info@villahijau.com
-              </a>
-            </div>
-            
-            <div className="bg-white p-6 rounded-xl border border-forest-100 shadow-sm text-center">
-              <div className="p-3 mb-4 inline-block rounded-full bg-forest-100 text-forest-600">
-                <MapPin size={24} />
-              </div>
-              <h3 className="text-lg font-semibold text-forest-900 mb-2">
-                Kantor
-              </h3>
-              <p className="text-forest-600 mb-2">Senin - Jumat: 09.00 - 17.00 WIB</p>
-              <p className="text-forest-700 font-medium">
-                Jl. Kaliurang KM 19, Yogyakarta, Indonesia 55581
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
-      
-      {/* Contact Form and Map */}
-      <section className="py-16 bg-forest-50">
+
+      {/* Contact Form & Map */}
+      <section className="py-20 bg-gray-50">
         <div className="section-padding">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Form */}
-            <div className="bg-white p-8 rounded-xl border border-forest-100 shadow-sm">
-              <h2 className="text-2xl font-bold text-forest-900 mb-6">
-                Kirim Pesan
-              </h2>
-              
-              <form onSubmit={handleSubmit}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* Contact Form */}
+            <div data-aos="fade-right">
+              <h2 className="text-3xl font-bold mb-8">Send us a message</h2>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-forest-700 mb-2 font-medium">
-                      Nama Lengkap <span className="text-red-500">*</span>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                      Full Name *
                     </label>
                     <input
                       type="text"
                       id="name"
                       name="name"
+                      required
                       value={formData.name}
                       onChange={handleChange}
-                      className={`w-full px-4 py-2 border ${errors.name ? 'border-red-500' : 'border-forest-200'} rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-600 focus:border-transparent`}
-                      placeholder="Nama lengkap Anda"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                      placeholder="Your name"
                     />
-                    {errors.name && (
-                      <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
-                        <AlertCircle className="h-3 w-3" /> {errors.name}
-                      </p>
-                    )}
                   </div>
-                  
                   <div>
-                    <label htmlFor="email" className="block text-forest-700 mb-2 font-medium">
-                      Email <span className="text-red-500">*</span>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      Email *
                     </label>
                     <input
                       type="email"
                       id="email"
                       name="email"
+                      required
                       value={formData.email}
                       onChange={handleChange}
-                      className={`w-full px-4 py-2 border ${errors.email ? 'border-red-500' : 'border-forest-200'} rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-600 focus:border-transparent`}
-                      placeholder="email@example.com"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                      placeholder="your@email.com"
                     />
-                    {errors.email && (
-                      <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
-                        <AlertCircle className="h-3 w-3" /> {errors.email}
-                      </p>
-                    )}
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="phone" className="block text-forest-700 mb-2 font-medium">
-                      Nomor Telepon <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className={`w-full px-4 py-2 border ${errors.phone ? 'border-red-500' : 'border-forest-200'} rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-600 focus:border-transparent`}
-                      placeholder="+62 812 3456 7890"
-                    />
-                    {errors.phone && (
-                      <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
-                        <AlertCircle className="h-3 w-3" /> {errors.phone}
-                      </p>
-                    )}
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="subject" className="block text-forest-700 mb-2 font-medium">
-                      Subjek <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      className={`w-full px-4 py-2 border ${errors.subject ? 'border-red-500' : 'border-forest-200'} rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-600 focus:border-transparent`}
-                    >
-                      <option value="" disabled>Pilih subjek</option>
-                      <option value="Reservasi">Reservasi</option>
-                      <option value="Informasi">Informasi</option>
-                      <option value="Kerja Sama">Kerja Sama</option>
-                      <option value="Lainnya">Lainnya</option>
-                    </select>
-                    {errors.subject && (
-                      <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
-                        <AlertCircle className="h-3 w-3" /> {errors.subject}
-                      </p>
-                    )}
                   </div>
                 </div>
                 
-                <div className="mb-6">
-                  <label htmlFor="message" className="block text-forest-700 mb-2 font-medium">
-                    Pesan <span className="text-red-500">*</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                      Company
+                    </label>
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                      placeholder="Your company"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
+                      Service of Interest
+                    </label>
+                    <select
+                      id="service"
+                      name="service"
+                      value={formData.service}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                    >
+                      <option value="">Select a service</option>
+                      {services.map(service => (
+                        <option key={service} value={service}>{service}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                    Message *
                   </label>
                   <textarea
                     id="message"
                     name="message"
+                    required
+                    rows={6}
                     value={formData.message}
                     onChange={handleChange}
-                    rows={5}
-                    className={`w-full px-4 py-2 border ${errors.message ? 'border-red-500' : 'border-forest-200'} rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-600 focus:border-transparent`}
-                    placeholder="Tulis pesan Anda di sini..."
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="Tell us about your project..."
                   ></textarea>
-                  {errors.message && (
-                    <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
-                      <AlertCircle className="h-3 w-3" /> {errors.message}
-                    </p>
-                  )}
                 </div>
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-forest-600 hover:bg-forest-700 text-white py-6 rounded-lg"
                   disabled={isSubmitting}
+                  className="btn-gradient w-full py-4 text-lg"
                 >
                   {isSubmitting ? (
                     <>
-                      <span className="loader mr-2"></span>
-                      <span>Mengirim...</span>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                      Sending...
                     </>
                   ) : (
                     <>
-                      <Send className="h-4 w-4 mr-2" />
-                      <span>Kirim Pesan</span>
+                      Send Message <Send className="ml-2 h-5 w-5" />
                     </>
                   )}
                 </Button>
               </form>
             </div>
-            
-            {/* Map and Business Hours */}
-            <div className="space-y-8">
-              <div className="rounded-xl overflow-hidden h-80 border border-forest-100">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63245.97055414075!2d110.38743008666524!3d-7.67690239483536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5eb57eae2c29%3A0x4027a76e3d8df72!2sKaliurang%2C%20Hargobinangun%2C%20Pakem%2C%20Sleman%20Regency%2C%20Special%20Region%20of%20Yogyakarta!5e0!3m2!1sen!2sid!4v1661323892853!5m2!1sen!2sid"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
-              
-              <div className="bg-white p-6 rounded-xl border border-forest-100 shadow-sm">
-                <div className="flex items-center gap-3 mb-4">
-                  <Clock className="h-5 w-5 text-forest-600" />
-                  <h3 className="text-lg font-semibold text-forest-900">
-                    Jam Operasional
-                  </h3>
-                </div>
+
+            {/* Map & Additional Info */}
+            <div data-aos="fade-left">
+              <div className="bg-white p-8 rounded-2xl shadow-lg h-full">
+                <h3 className="text-2xl font-bold mb-6">Let's work together</h3>
+                <p className="text-gray-600 mb-8">
+                  Ready to take your brand to the next level? We'd love to hear about your project 
+                  and discuss how we can help you achieve your goals.
+                </p>
                 
-                <div className="space-y-3">
-                  <div className="flex justify-between py-2 border-b border-forest-100">
-                    <span className="text-forest-700">Senin - Jumat</span>
-                    <span className="font-medium text-forest-900">09:00 - 17:00 WIB</span>
+                <div className="space-y-6 mb-8">
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Response Time</h4>
+                    <p className="text-gray-600">We typically respond within 24 hours</p>
                   </div>
-                  <div className="flex justify-between py-2 border-b border-forest-100">
-                    <span className="text-forest-700">Sabtu</span>
-                    <span className="font-medium text-forest-900">09:00 - 15:00 WIB</span>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Project Timeline</h4>
+                    <p className="text-gray-600">Most projects start within 1-2 weeks</p>
                   </div>
-                  <div className="flex justify-between py-2">
-                    <span className="text-forest-700">Minggu</span>
-                    <span className="font-medium text-forest-900">Tutup</span>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Free Consultation</h4>
+                    <p className="text-gray-600">30-minute strategy call to discuss your needs</p>
                   </div>
                 </div>
-                
-                <div className="mt-6 pt-4 border-t border-forest-100">
-                  <p className="text-forest-700 text-sm">
-                    <span className="font-medium">Catatan:</span> Jam operasional untuk kantor pusat kami. Layanan reservasi dan customer service tersedia setiap hari dari 08:00 - 20:00 WIB.
-                  </p>
+
+                {/* Dubai Map */}
+                <div className="rounded-xl overflow-hidden h-64 bg-gray-200">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462560.6841313431!2d54.89784845395154!3d25.07640924056069!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2s!4v1706789012345!5m2!1sen!2s"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-      
+
       {/* FAQ Section */}
-      <section className="py-16">
+      <section className="py-20">
         <div className="section-padding">
-          <SectionHeading
-            title="Pertanyaan Umum"
-            subtitle="Temukan jawaban untuk pertanyaan yang sering diajukan"
-            centered
-            className="mb-12"
-          />
-          
-          <div className="max-w-3xl mx-auto">
-            <div className="space-y-6">
-              <div className="bg-white p-6 rounded-xl border border-forest-100 shadow-sm">
-                <h3 className="text-lg font-semibold text-forest-900 mb-2">
-                  Bagaimana cara melakukan reservasi?
-                </h3>
-                <p className="text-forest-700">
-                  Anda dapat melakukan reservasi melalui website kami, menghubungi tim reservasi kami melalui telepon, atau mengirimkan email. Kami akan membalas dalam waktu 24 jam.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-xl border border-forest-100 shadow-sm">
-                <h3 className="text-lg font-semibold text-forest-900 mb-2">
-                  Berapa lama waktu check-in dan check-out?
-                </h3>
-                <p className="text-forest-700">
-                  Waktu check-in adalah pukul 14:00 WIB dan waktu check-out adalah pukul 12:00 WIB. Namun, kami dapat mengakomodasi permintaan khusus jika tersedia.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-xl border border-forest-100 shadow-sm">
-                <h3 className="text-lg font-semibold text-forest-900 mb-2">
-                  Apakah ada deposit yang harus dibayarkan?
-                </h3>
-                <p className="text-forest-700">
-                  Ya, kami memerlukan deposit sebesar 50% dari total biaya menginap untuk mengkonfirmasi reservasi Anda. Sisa pembayaran dapat dilakukan saat check-in.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-xl border border-forest-100 shadow-sm">
-                <h3 className="text-lg font-semibold text-forest-900 mb-2">
-                  Bagaimana kebijakan pembatalan reservasi?
-                </h3>
-                <p className="text-forest-700">
-                  Pembatalan 7 hari atau lebih sebelum tanggal check-in akan mendapatkan pengembalian penuh. Pembatalan kurang dari 7 hari akan dikenakan biaya sesuai dengan ketentuan yang berlaku.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-xl border border-forest-100 shadow-sm">
-                <h3 className="text-lg font-semibold text-forest-900 mb-2">
-                  Apakah ada layanan tambahan yang tersedia?
-                </h3>
-                <p className="text-forest-700">
-                  Ya, kami menyediakan berbagai layanan tambahan seperti transportasi, paket wisata, chef pribadi, dan layanan pijat. Silakan hubungi kami untuk informasi lebih lanjut.
-                </p>
-              </div>
+          <div className="text-center mb-16" data-aos="fade-up">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Frequently Asked Questions</h2>
+            <p className="text-xl text-gray-600">
+              Get answers to common questions about our services
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[
+                {
+                  question: "How long does a typical project take?",
+                  answer: "Project timelines vary based on scope, but most projects are completed within 2-6 weeks from start to finish."
+                },
+                {
+                  question: "Do you work with small businesses?",
+                  answer: "Absolutely! We work with businesses of all sizes, from startups to established enterprises."
+                },
+                {
+                  question: "What's included in your packages?",
+                  answer: "Each package is customized to your needs. We'll discuss exactly what's included during our consultation."
+                },
+                {
+                  question: "Do you offer ongoing support?",
+                  answer: "Yes, we offer various retainer packages for ongoing social media management and marketing support."
+                }
+              ].map((faq, index) => (
+                <div 
+                  key={index}
+                  className="bg-white p-6 rounded-xl shadow-lg"
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                >
+                  <h3 className="text-lg font-bold mb-3">{faq.question}</h3>
+                  <p className="text-gray-600">{faq.answer}</p>
+                </div>
+              ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 relative">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80)' }}
+        >
+          <div className="absolute inset-0 hero-gradient"></div>
+        </div>
+        <div className="section-padding relative z-10">
+          <div className="max-w-4xl mx-auto text-center text-white" data-aos="fade-up">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Ready to start your project?
+            </h2>
+            <p className="text-xl mb-8 opacity-90">
+              Book a free 30-minute consultation to discuss your brand goals
+            </p>
+            <Button className="bg-white text-gray-900 hover:bg-gray-100 text-lg px-8 py-4">
+              Book Free Consultation <ChevronRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </section>
