@@ -1,247 +1,269 @@
-import React, { useEffect } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+
+import React from 'react';
+import { Check, Users, Award, Leaf, Heart } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
-import Hero from '@/components/layout/Hero';
+import { SectionHeading } from '@/components/ui/section-heading';
 import { Button } from '@/components/ui/button';
-import { Users, Award, Target, Globe, ChevronRight, Quote } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const AboutPage = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      easing: 'ease-out-cubic',
-    });
-  }, []);
-
-  const values = [
-    {
-      icon: Award,
-      title: "Excellence",
-      description: "We strive for perfection in every project, delivering work that exceeds expectations."
-    },
-    {
-      icon: Users,
-      title: "Collaboration",
-      description: "We work closely with our clients as true partners in their success journey."
-    },
-    {
-      icon: Target,
-      title: "Results-Driven",
-      description: "Every strategy we create is designed to achieve measurable business outcomes."
-    },
-    {
-      icon: Globe,
-      title: "Global Perspective",
-      description: "Our international experience helps brands succeed in diverse markets."
-    }
-  ];
-
-  const team = [
-    {
-      name: "Sarah Ahmed",
-      role: "Creative Director",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      description: "10+ years of experience in brand strategy and visual storytelling."
-    },
-    {
-      name: "Omar Hassan",
-      role: "Digital Marketing Lead",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      description: "Expert in growth marketing and data-driven campaign optimization."
-    },
-    {
-      name: "Layla Mansour",
-      role: "Content Strategist",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      description: "Specialist in creating compelling narratives that drive engagement."
-    },
-    {
-      name: "Khalid Rashed",
-      role: "Tech Lead",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      description: "Full-stack developer with expertise in modern web technologies."
-    }
-  ];
-
-  const stats = [
-    { number: "120+", label: "Happy Clients" },
-    { number: "500+", label: "Projects Completed" },
-    { number: "15+", label: "Countries Served" },
-    { number: "5+", label: "Years Experience" }
-  ];
-
   return (
     <Layout>
-      {/* Hero Section */}
-      <Hero
-        title="About VEXA Creative"
-        subtitle="We don't just create content. We build magnetic brands."
-        backgroundImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-      />
-
-      {/* Story Section */}
-      <section className="py-20">
+      {/* Header */}
+      <section className="pt-32 pb-16 bg-gradient-to-b from-forest-100 to-white">
         <div className="section-padding">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div data-aos="fade-right">
-              <h2 className="text-4xl md:text-5xl font-bold mb-8">Our Story</h2>
-              <div className="space-y-6 text-lg text-gray-600">
-                <p>
-                  VEXA Creative was born from a simple yet powerful vision: to help brands tell their stories 
-                  in ways that truly resonate with their audience. Founded in Dubai in 2019, we started as a 
-                  small team of passionate creatives who believed that every brand deserves to shine.
-                </p>
-                <p>
-                  What began as a boutique creative studio has evolved into a full-service digital agency, 
-                  but our core mission remains unchanged. We're here to bridge the gap between brands and 
-                  their audiences through authentic storytelling, stunning visuals, and strategic thinking.
-                </p>
-                <p>
-                  Today, we're proud to work with over 120 clients across 15+ countries, from startups 
-                  finding their voice to established brands looking to reinvent themselves in the digital space.
-                </p>
+          <SectionHeading
+            title="Tentang Villa Hijau"
+            subtitle="Mengenal lebih dekat penyedia akomodasi villa premium di Yogyakarta"
+            centered
+          />
+        </div>
+      </section>
+      
+      {/* Our Story */}
+      <section className="py-16">
+        <div className="section-padding">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <span className="inline-block px-3 py-1 mb-4 rounded-full bg-forest-100 text-forest-800 text-sm font-medium">
+                Cerita Kami
+              </span>
+              <h2 className="text-3xl font-bold text-forest-900 mb-6">
+                Menghadirkan Pengalaman Liburan Premium di Yogyakarta
+              </h2>
+              <p className="text-forest-700 mb-4">
+                Villa Hijau didirikan pada tahun 2015 dengan visi untuk menghadirkan akomodasi premium yang memanfaatkan keindahan alam Yogyakarta. Kami percaya bahwa liburan yang sempurna hadir dari kombinasi antara kenyamanan modern, pelayanan terbaik, dan keindahan alam yang menakjubkan.
+              </p>
+              <p className="text-forest-700 mb-6">
+                Berawal dari sebuah villa di Kaliurang dengan pemandangan Gunung Merapi, kini Villa Hijau telah berkembang dengan lebih dari 10 properti premium di berbagai lokasi strategis di Yogyakarta. Setiap villa kami dirancang dengan perhatian terhadap detail, memadukan kenyamanan modern dengan sentuhan lokal yang memberikan pengalaman liburan yang otentik dan berkesan.
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-start gap-2">
+                  <div className="p-1 rounded-full bg-forest-100 text-forest-600 mt-0.5">
+                    <Check className="h-4 w-4" />
+                  </div>
+                  <p className="text-forest-700">Villa premium dengan lokasi strategis di Yogyakarta</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="p-1 rounded-full bg-forest-100 text-forest-600 mt-0.5">
+                    <Check className="h-4 w-4" />
+                  </div>
+                  <p className="text-forest-700">Pelayanan profesional dan ramah untuk kenyamanan maksimal</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="p-1 rounded-full bg-forest-100 text-forest-600 mt-0.5">
+                    <Check className="h-4 w-4" />
+                  </div>
+                  <p className="text-forest-700">Fokus pada pengalaman menginap yang berkesan dan autentik</p>
+                </div>
               </div>
             </div>
-            <div data-aos="fade-left">
-              <div className="relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                  alt="VEXA Creative Team"
-                  className="rounded-2xl shadow-2xl"
-                />
-                <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg">
-                  <div className="text-3xl font-bold text-gray-900">2019</div>
-                  <div className="text-gray-600">Founded in Dubai</div>
-                </div>
+            
+            <div className="relative">
+              <img 
+                src="https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80"
+                alt="Villa Hijau Story"
+                className="rounded-xl"
+              />
+              <div className="absolute -bottom-8 -right-8 bg-white rounded-lg p-4 shadow-lg max-w-[200px]">
+                <h3 className="text-forest-900 font-semibold text-lg mb-1">Sejak 2015</h3>
+                <p className="text-forest-600 text-sm">Melayani ribuan tamu dengan pengalaman premium</p>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Stats Section */}
-      <section className="py-20 bg-gray-50">
+      
+      {/* Our Values */}
+      <section className="py-16 bg-forest-50">
         <div className="section-padding">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div 
-                key={stat.label}
-                className="text-center"
-                data-aos="fade-up"
-                data-aos-delay={index * 100}
-              >
-                <div className="text-4xl md:text-5xl font-bold text-gradient-vexa mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="py-20">
-        <div className="section-padding">
-          <div className="text-center mb-16" data-aos="fade-up">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Values</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The principles that guide everything we do
-            </p>
-          </div>
-
+          <SectionHeading
+            title="Nilai-Nilai Kami"
+            subtitle="Prinsip yang mendasari setiap layanan dan pengalaman yang kami tawarkan"
+            centered
+            className="mb-12"
+          />
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <div 
-                key={value.title}
-                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 text-center"
-                data-aos="fade-up"
-                data-aos-delay={index * 100}
-              >
-                <div className="p-4 bg-gradient-button rounded-xl w-fit mx-auto mb-6">
-                  <value.icon className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-4">{value.title}</h3>
-                <p className="text-gray-600">{value.description}</p>
+            <div className="bg-white p-6 rounded-xl border border-forest-100 shadow-sm">
+              <div className="p-3 mb-4 inline-block rounded-lg bg-forest-100 text-forest-600">
+                <Users size={24} />
               </div>
-            ))}
+              <h3 className="text-lg font-semibold text-forest-900 mb-2">
+                Pelayanan Prima
+              </h3>
+              <p className="text-forest-600 text-sm">
+                Kami berkomitmen untuk memberikan pelayanan terbaik dengan pendekatan personal untuk setiap tamu kami.
+              </p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-xl border border-forest-100 shadow-sm">
+              <div className="p-3 mb-4 inline-block rounded-lg bg-forest-100 text-forest-600">
+                <Award size={24} />
+              </div>
+              <h3 className="text-lg font-semibold text-forest-900 mb-2">
+                Kualitas Premium
+              </h3>
+              <p className="text-forest-600 text-sm">
+                Kami tidak berkompromi dengan kualitas, dari fasilitas villa hingga pelayanan yang kami berikan.
+              </p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-xl border border-forest-100 shadow-sm">
+              <div className="p-3 mb-4 inline-block rounded-lg bg-forest-100 text-forest-600">
+                <Leaf size={24} />
+              </div>
+              <h3 className="text-lg font-semibold text-forest-900 mb-2">
+                Harmoni dengan Alam
+              </h3>
+              <p className="text-forest-600 text-sm">
+                Kami mendesain villa yang menyatu dengan keindahan alam sekitar dan mempraktikkan operasional yang ramah lingkungan.
+              </p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-xl border border-forest-100 shadow-sm">
+              <div className="p-3 mb-4 inline-block rounded-lg bg-forest-100 text-forest-600">
+                <Heart size={24} />
+              </div>
+              <h3 className="text-lg font-semibold text-forest-900 mb-2">
+                Pengalaman Autentik
+              </h3>
+              <p className="text-forest-600 text-sm">
+                Kami menciptakan pengalaman menginap yang autentik dengan sentuhan budaya lokal untuk kenangan tak terlupakan.
+              </p>
+            </div>
           </div>
         </div>
       </section>
-
+      
       {/* Team Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-16">
         <div className="section-padding">
-          <div className="text-center mb-16" data-aos="fade-up">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Meet Our Team</h2>
-            <p className="text-xl text-gray-600">
-              The creative minds behind VEXA's success
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
-              <div 
-                key={member.name}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
-                data-aos="fade-up"
-                data-aos-delay={index * 100}
-              >
-                <div className="aspect-square overflow-hidden">
+          <SectionHeading
+            title="Tim Kami"
+            subtitle="Kenali orang-orang hebat di balik Villa Hijau yang selalu siap melayani Anda"
+            centered
+            className="mb-12"
+          />
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="relative inline-block mb-4">
+                <div className="aspect-square rounded-full overflow-hidden w-48 mx-auto">
                   <img 
-                    src={member.image} 
-                    alt={member.name}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                    src="https://i.pravatar.cc/300?img=11" 
+                    alt="CEO Villa Hijau"
+                    className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{member.name}</h3>
-                  <div className="text-primary font-medium mb-3">{member.role}</div>
-                  <p className="text-gray-600 text-sm">{member.description}</p>
+              </div>
+              <h3 className="text-lg font-semibold text-forest-900">Adi Wijaya</h3>
+              <p className="text-forest-600 mb-2">Founder & CEO</p>
+              <p className="text-forest-700 text-sm">
+                Berpengalaman 15 tahun di industri perhotelan dan pariwisata
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="relative inline-block mb-4">
+                <div className="aspect-square rounded-full overflow-hidden w-48 mx-auto">
+                  <img 
+                    src="https://i.pravatar.cc/300?img=12" 
+                    alt="Operations Manager Villa Hijau"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Mission Section */}
-      <section className="py-20">
-        <div className="section-padding">
-          <div className="max-w-4xl mx-auto text-center" data-aos="fade-up">
-            <Quote className="h-12 w-12 text-primary mx-auto mb-6" />
-            <blockquote className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">
-              "Our mission is to make your brand unforgettable. We believe every brand has a unique story 
-              worth telling, and we're here to help you tell it in the most compelling way possible."
-            </blockquote>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="btn-gradient text-lg px-8 py-4">
-                Work With Us <ChevronRight className="ml-2 h-5 w-5" />
-              </Button>
+              <h3 className="text-lg font-semibold text-forest-900">Maya Sari</h3>
+              <p className="text-forest-600 mb-2">Operations Manager</p>
+              <p className="text-forest-700 text-sm">
+                Memastikan standar kualitas tinggi di semua villa kami
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="relative inline-block mb-4">
+                <div className="aspect-square rounded-full overflow-hidden w-48 mx-auto">
+                  <img 
+                    src="https://i.pravatar.cc/300?img=13" 
+                    alt="Design Director Villa Hijau"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-forest-900">Budi Santoso</h3>
+              <p className="text-forest-600 mb-2">Design Director</p>
+              <p className="text-forest-700 text-sm">
+                Mendesain villa yang menyatu dengan keindahan alam sekitar
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="relative inline-block mb-4">
+                <div className="aspect-square rounded-full overflow-hidden w-48 mx-auto">
+                  <img 
+                    src="https://i.pravatar.cc/300?img=14" 
+                    alt="Customer Experience Villa Hijau"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-forest-900">Dian Pratiwi</h3>
+              <p className="text-forest-600 mb-2">Customer Experience</p>
+              <p className="text-forest-700 text-sm">
+                Memastikan setiap tamu mendapatkan pengalaman terbaik
+              </p>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Based in Dubai */}
-      <section className="py-20 relative">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80)' }}
-        >
-          <div className="absolute inset-0 hero-gradient"></div>
+      
+      {/* Stats Section */}
+      <section className="py-16 bg-forest-900 text-white">
+        <div className="section-padding">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
+            <div>
+              <div className="text-4xl md:text-5xl font-bold mb-2 text-white">10+</div>
+              <p className="text-forest-200">Villa Premium</p>
+            </div>
+            <div>
+              <div className="text-4xl md:text-5xl font-bold mb-2 text-white">5+</div>
+              <p className="text-forest-200">Tahun Pengalaman</p>
+            </div>
+            <div>
+              <div className="text-4xl md:text-5xl font-bold mb-2 text-white">1,200+</div>
+              <p className="text-forest-200">Tamu Puas</p>
+            </div>
+            <div>
+              <div className="text-4xl md:text-5xl font-bold mb-2 text-white">4.8</div>
+              <p className="text-forest-200">Rating Rata-rata</p>
+            </div>
+          </div>
         </div>
-        <div className="section-padding relative z-10">
-          <div className="max-w-4xl mx-auto text-center text-white" data-aos="fade-up">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Based in Dubai — Trusted Worldwide
+      </section>
+      
+      {/* CTA Section */}
+      <section className="py-16 bg-forest-50">
+        <div className="section-padding">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-forest-900 mb-4">
+              Siap Untuk Pengalaman Menginap Terbaik?
             </h2>
-            <p className="text-xl mb-8 opacity-90">
-              From our headquarters in the heart of Dubai, we serve clients across the globe, 
-              bringing international perspective to every project.
+            <p className="text-forest-700 mb-8">
+              Jelajahi koleksi villa premium kami atau hubungi tim kami untuk informasi lebih lanjut dan pemesanan.
             </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link to="/villas">
+                <Button size="lg" className="rounded-full px-8 bg-forest-600 hover:bg-forest-700 text-white">
+                  Jelajahi Villa Kami
+                </Button>
+              </Link>
+              <Link to="/kontak">
+                <Button size="lg" variant="outline" className="rounded-full px-8 border-forest-300 text-forest-700 hover:bg-forest-100">
+                  Hubungi Kami
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

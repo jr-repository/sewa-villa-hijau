@@ -16,10 +16,20 @@ const Navbar = () => {
   const location = useLocation();
 
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Services', href: '/services' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Beranda', href: '/' },
+    { name: 'Villa', href: '/villas' },
+    { 
+      name: 'Destinasi', 
+      href: '#',
+      children: [
+        { name: 'Kaliurang', href: '/destinasi/kaliurang' },
+        { name: 'Prambanan', href: '/destinasi/prambanan' },
+        { name: 'Pantai Selatan', href: '/destinasi/pantai-selatan' },
+        { name: 'Malioboro', href: '/destinasi/malioboro' },
+      ]
+    },
+    { name: 'Tentang Kami', href: '/tentang-kami' },
+    { name: 'Kontak', href: '/kontak' },
   ];
 
   useEffect(() => {
@@ -50,30 +60,47 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
-              <span className="text-2xl font-bold">VEXA <span className="text-gradient-vexa">Creative</span></span>
+              <span className="text-2xl font-bold text-gradient-green">Villa<span className="text-forest-700">Hijau</span></span>
             </Link>
           </div>
           
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  location.pathname === item.href 
-                    ? 'text-primary' 
-                    : scrolled ? 'text-gray-900' : 'text-white'
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navigation.map((item) => 
+              !item.children ? (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`text-sm font-medium transition-colors hover:text-forest-700 ${
+                    location.pathname === item.href 
+                      ? 'text-forest-700' 
+                      : 'text-forest-900'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <DropdownMenu key={item.name}>
+                  <DropdownMenuTrigger className="flex items-center text-sm font-medium text-forest-900 transition-colors hover:text-forest-700 gap-1">
+                    {item.name} <ChevronDown size={16} />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-44 rounded-xl overflow-hidden">
+                    {item.children.map((child) => (
+                      <DropdownMenuItem key={child.name} asChild>
+                        <Link to={child.href} className="w-full cursor-pointer">
+                          {child.name}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )
+            )}
           </div>
           
           <div className="hidden lg:flex">
-            <Button className="btn-gradient">
-              Let's Work Together
+            <Button className="rounded-full px-6 bg-forest-600 hover:bg-forest-700 text-white">
+              Pesan Sekarang
             </Button>
           </div>
           
