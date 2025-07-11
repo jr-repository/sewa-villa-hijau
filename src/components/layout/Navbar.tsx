@@ -118,9 +118,10 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div 
-        className={`lg:hidden absolute top-full left-0 right-0 glass-effect shadow-md transition-transform duration-300 transform ${
-          isOpen ? 'translate-y-0' : '-translate-y-full'
+        className={`lg:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md shadow-lg transition-all duration-300 ease-in-out ${
+          isOpen ? 'translate-y-0 opacity-100 visible' : '-translate-y-full opacity-0 invisible'
         }`}
+        style={{ zIndex: 40 }}
       >
         <div className="px-4 pt-2 pb-4 space-y-2">
           {navigation.map((item) => (
